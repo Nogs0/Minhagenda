@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/frameInput"
+        android:layout_width="match_parent"
+        android:layout_height="337dp">
+        <fragment
+            android:name="com.example.minhagenda.fragments.InputFragment"
+            android:id="@+id/input_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider" />
+
+    <FrameLayout
+        android:id="@+id/frameOutput"
+        android:layout_width="match_parent"
+        android:layout_height="393dp">
+        <fragment
+            android:name="com.example.minhagenda.fragments.OutputFragment"
+            android:id="@+id/output_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+</LinearLayout>

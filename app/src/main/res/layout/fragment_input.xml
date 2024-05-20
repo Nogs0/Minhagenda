@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:backgroundTint="#FFFFFF"
+    tools:context=".fragments.InputFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="228dp" />
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            android:text="@string/ok"
+            android:textColor="@color/black"
+            app:iconTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline6"
+            app:layout_constraintVertical_bias="0.333" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/novoCompromisso"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/inputDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.132" />
+
+        <EditText
+            android:id="@+id/inputDate"
+            android:layout_width="151dp"
+            android:layout_height="38dp"
+            android:autofillHints=""
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:hint="@string/data"
+            android:inputType="date"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/inputDescription"
+            app:layout_constraintEnd_toStartOf="@+id/inputTime"
+            app:layout_constraintHorizontal_bias="0.37"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.71" />
+
+        <EditText
+            android:id="@+id/inputTime"
+            android:layout_width="182dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints=""
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:ems="10"
+            android:hint="@string/hora"
+            android:inputType="time"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/inputDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.71" />
+
+        <EditText
+            android:id="@+id/inputDescription"
+            android:layout_width="365dp"
+            android:layout_height="64dp"
+            android:layout_marginBottom="24dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/descricao"
+            android:inputType="text"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnOk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

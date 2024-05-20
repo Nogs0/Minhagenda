@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Minhagenda</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="novoCompromisso">Novo Compromisso</string>
+    <string name="data">Data</string>
+    <string name="hora">Hora</string>
+    <string name="descricao">Descrição</string>
+    <string name="ok">OK</string>
+    <string name="hoje">Hoje</string>
+    <string name="outroDia">Outro dia</string>
+</resources>
