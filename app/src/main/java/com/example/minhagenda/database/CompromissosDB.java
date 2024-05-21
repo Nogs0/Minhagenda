@@ -22,33 +22,6 @@ public class CompromissosDB {
     public CompromissosDB(Context context) {
         database = new CompromissosDBHelper(context.getApplicationContext()).getWritableDatabase();
     }
-
-    public String getCompromissosHoje() {
-
-        String[] argsWhere = new String[]{
-                LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-        };
-
-        Cursor cursor = queryCompromissos("data = ?", argsWhere);
-        StringBuilder stringBuilder = new StringBuilder();
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                String data = cursor.getString(cursor.getColumnIndexOrThrow(CompromissosDBSchema.CompromissosHc.Cols.DATE));
-                String hora = cursor.getString(cursor.getColumnIndexOrThrow(CompromissosDBSchema.CompromissosHc.Cols.HOUR));
-                String descricao = cursor.getString(cursor.getColumnIndexOrThrow(CompromissosDBSchema.CompromissosHc.Cols.DESCRIPTION));
-
-                if (hora != null && !descricao.isEmpty()) {
-                    stringBuilder.append(data).append(" - ").append(hora).append(" - ").append(descricao).append("\n");
-                }
-            } while (cursor.moveToNext());
-
-            cursor.close();
-        }
-
-        return stringBuilder.toString();
-    }
-
     public String getCompromissosByDate(String date) {
         String[] argsWhere = new String[]{
                 date
@@ -64,7 +37,7 @@ public class CompromissosDB {
                 String descricao = cursor.getString(cursor.getColumnIndexOrThrow(CompromissosDBSchema.CompromissosHc.Cols.DESCRIPTION));
 
                 if (hora != null && !descricao.isEmpty()) {
-                    stringBuilder.append(data).append(" - ").append(hora).append(" - ").append(descricao).append("\n");
+                    stringBuilder.append(hora).append(" - ").append(descricao).append("\n");
                 }
             } while (cursor.moveToNext());
 
@@ -95,7 +68,7 @@ public class CompromissosDB {
                 argsWhere,
                 null,
                 null,
-                null
+                "hora ASC"
         );
     }
 }

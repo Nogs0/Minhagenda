@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
@@ -18,15 +19,22 @@ import java.util.Calendar;
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
     final Calendar c = Calendar.getInstance();
-    private View view;
-    private EditText editText;
     private Integer hora = c.get(Calendar.HOUR_OF_DAY);
     private Integer minuto = c.get(Calendar.MINUTE);
 
-    public TimePickerFragment(Context context, int editTextId) {
-        Activity act = (Activity) context;
+    private TimePickerDialog.OnTimeSetListener listener;
 
-        this.editText = (EditText) act.findViewById(editTextId);
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof TimePickerDialog.OnTimeSetListener)
+            listener = (TimePickerDialog.OnTimeSetListener) context;
+        else
+            throw new ClassCastException();
+    }
+
+    public TimePickerFragment(Context context) {
+        Activity act = (Activity) context;
     }
 
     @Override
@@ -36,15 +44,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hora, int minuto) {
-        this.hora = hora;
-        this.minuto = minuto;
-
-        updateDisplay();
+        listener.onTimeSet(view, hora, minuto);
     }
 
-    private void updateDisplay() {
-        String horaString = this.hora < 10 ? "0" + this.hora : this.hora.toString();
-        String minutoString = this.minuto < 10 ? "0" + this.minuto : this.minuto.toString();
-        this.editText.setText(horaString + ":" + minutoString);
-    }
 }

@@ -8,7 +8,11 @@ import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.minhagenda.activities.OnInputDatePickerListener;
+import com.example.minhagenda.activities.OnOutputDatePickerListener;
 
 import java.util.Calendar;
 
@@ -18,15 +22,25 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     private Integer ano = c.get(Calendar.YEAR);
     private Integer mes = c.get(Calendar.MONTH);
     private Integer dia = c.get(Calendar.DAY_OF_MONTH);
-    private EditText editText;
 
-    public DatePickerFragment(Context context) {
-        Activity act = (Activity) context;
+    private boolean input = false;
+    private OnInputDatePickerListener inputListener;
+    private OnOutputDatePickerListener outputListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof OnInputDatePickerListener)
+            inputListener = (OnInputDatePickerListener) context;
+        if(context instanceof OnOutputDatePickerListener)
+            outputListener = (OnOutputDatePickerListener) context;
+        else
+            throw new ClassCastException();
     }
 
-    public DatePickerFragment(Context context, int editTextId) {
+    public DatePickerFragment(Context context, boolean input) {
         Activity act = (Activity) context;
-        editText = (EditText) act.findViewById(editTextId);
+        this.input = input;
     }
 
     @Override
@@ -36,18 +50,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker view, int ano, int mes, int dia) {
-        this.ano = ano;
-        this.mes = mes + 1;
-        this.dia = dia;
-
-        if (editText != null)
-            updateDisplay();
-    }
-
-    private void updateDisplay() {
-        String diaString = this.dia < 10 ? "0" + this.dia : this.dia.toString();
-        String mesString = this.mes < 10 ? "0" + this.mes : this.mes.toString();
-
-        editText.setText(diaString + "/" + mesString + "/" + this.ano);
+        if (this.inputListener != null && this.input)
+            this.inputListener.onInputDateSet(ano, mes, dia);
+        if (this.outputListener != null && !this.input)
+            this.outputListener.onOutputDateSet(ano, mes, dia);
     }
 }
