@@ -1,17 +1,12 @@
 package com.example.minhagenda.fragments;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -19,11 +14,8 @@ import com.example.minhagenda.R;
 import com.example.minhagenda.activities.OnOutputDatePickerListener;
 import com.example.minhagenda.database.CompromissosDB;
 
-import org.w3c.dom.Text;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class OutputFragment extends Fragment implements OnOutputDatePickerListener {
 
@@ -31,6 +23,7 @@ public class OutputFragment extends Fragment implements OnOutputDatePickerListen
     private Button btnOutroDia;
     private DatePickerFragment datePickerFragment;
     private TextView textCompromissos;
+    private TextView textDataFiltrada;
     private CompromissosDB compromissosDB;
     private View view;
 
@@ -51,6 +44,8 @@ public class OutputFragment extends Fragment implements OnOutputDatePickerListen
         btnHoje = (Button) this.view.findViewById(R.id.btnHoje);
         btnHoje.setOnClickListener(v -> {
             Log.i("BOTAO HOJE", String.format("HOJE: %s.", LocalDate.now()));
+            textDataFiltrada = this.view.findViewById(R.id.txtDataFiltrada);
+            textDataFiltrada.setText("Filtro: Hoje");
             String compromissos = compromissosDB.getCompromissosByDate(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             textCompromissos.setText(compromissos);
         });
@@ -69,6 +64,9 @@ public class OutputFragment extends Fragment implements OnOutputDatePickerListen
         String mesString = month < 10 ? "0" + month : String.valueOf(month);
         String date = diaString + "/" + mesString + "/" + year;
         textCompromissos.setText(compromissosDB.getCompromissosByDate(date));
+        textDataFiltrada = this.view.findViewById(R.id.txtDataFiltrada);
+        textDataFiltrada.setText("Filtro: " + date);
+        Log.i("DATA ESCOLHIDA PRO FITLRO", date);
     }
 
     @Override
