@@ -1,4 +1,4 @@
-package com.example.minhagenda.models;
+package com.example.minhagenda.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +14,7 @@ public class CompromissosDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("DROP TABLE IF EXISTS " + CompromissosDBSchema.CompromissosHc.NAME);
         db.execSQL("CREATE TABLE " + CompromissosDBSchema.CompromissosHc.NAME + " (" +
                 "_id integer PRIMARY KEY autoincrement, "
                 + CompromissosDBSchema.CompromissosHc.Cols.DATE + ", "
@@ -25,8 +26,6 @@ public class CompromissosDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int versaoAntiga, int novaVersao) {
-        //Política de upgrade é simplesmente descartar o conteúdo e começar novamente
-        db.execSQL("DROP TABLE IF EXISTS " + CompromissosDBSchema.CompromissosHc.NAME);
         onCreate(db);
     }
 }

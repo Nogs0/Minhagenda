@@ -1,4 +1,4 @@
-package com.example.minhagenda.models;
+package com.example.minhagenda.database;
 
 import java.time.LocalDate;
 

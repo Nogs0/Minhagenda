@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,11 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.minhagenda.R;
-import com.example.minhagenda.models.Compromisso;
-import com.example.minhagenda.models.CompromissosDB;
-import com.example.minhagenda.models.CompromissosDBSchema;
-
-import java.sql.Time;
+import com.example.minhagenda.database.Compromisso;
+import com.example.minhagenda.database.CompromissosDB;
 
 public class InputFragment extends Fragment {
 
@@ -35,6 +31,8 @@ public class InputFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (compromissoDB == null)
+            compromissoDB = new CompromissosDB(getActivity().getBaseContext());
 
         inputDescription = (EditText) this.view.findViewById(R.id.inputDescription);
         inputDate = (EditText) this.view.findViewById(R.id.inputDate);
@@ -55,6 +53,7 @@ public class InputFragment extends Fragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Log.d("DATA", inputDate.getText().toString());
                 Log.d("HORA", inputTime.getText().toString());
                 Log.d("DESCRICAO", inputDescription.getText().toString());
@@ -80,19 +79,11 @@ public class InputFragment extends Fragment {
     }
 
     private void createCompromisso(String data, String hora, String descricao) {
-        if (data != null || hora != null || !descricao.isEmpty()) {
+        if (isValid()) {
             Compromisso compromisso = new Compromisso(data, hora, descricao);
             compromissoDB.addCompromisso(compromisso);
-            showCompromissos(data);
         } else {
             Log.d("main", "Dados incompletos");
         }
-    }
-
-    void showCompromissos(String data) {
-        String clausulaWhere = CompromissosDBSchema.CompromissosHc.Cols.DATE + " = ?";
-        String[] argsWhere = new String[]{data};
-        String compromissos = compromissoDB.listCompromissos(clausulaWhere, argsWhere);
-        textViewCompromissos.setText(compromissos);
     }
 }

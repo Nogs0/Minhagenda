@@ -1,4 +1,4 @@
-package com.example.minhagenda.models;
+package com.example.minhagenda.database;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;

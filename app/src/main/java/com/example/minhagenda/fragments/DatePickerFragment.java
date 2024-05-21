@@ -23,18 +23,21 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public DatePickerFragment(Context context) {
         Activity act = (Activity) context;
     }
+
     public DatePickerFragment(Context context, int editTextId) {
         Activity act = (Activity) context;
         editText = (EditText) act.findViewById(editTextId);
     }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new DatePickerDialog(requireContext(), this, ano, mes, dia);
     }
+
     @Override
     public void onDateSet(DatePicker view, int ano, int mes, int dia) {
         this.ano = ano;
-        this.mes = mes;
+        this.mes = mes + 1;
         this.dia = dia;
 
         if (editText != null)
